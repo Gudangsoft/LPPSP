@@ -39,7 +39,7 @@
         display: grid;
         grid-template-columns: 1.2fr 1fr;
         gap: 0;
-        align-items: center;
+        align-items: stretch;
         background: var(--white);
         padding: 0;
         border-radius: var(--radius);
@@ -47,7 +47,7 @@
         position: relative;
         overflow: hidden;
         border: 1px solid var(--border);
-        min-height: 480px;
+        min-height: 560px;
     }
 
     /* Abstract shapes for premium feel */
@@ -108,9 +108,10 @@
         position: relative;
         z-index: 1;
         height: 100%;
+        min-height: 560px;
         width: 100%;
         overflow: hidden;
-        background: var(--white);
+        background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
         display: flex;
         align-items: center;
         justify-content: center;
