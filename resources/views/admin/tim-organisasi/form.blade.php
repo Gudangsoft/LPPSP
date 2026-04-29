@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label class="form-label">Kelompok Tim <span>*</span></label>
                 <select name="kelompok" class="form-control @error('kelompok') is-invalid @enderror" required>
-                    @foreach(['Tim Pembina','Tim Pengurus','Tim Tenaga Ahli'] as $k)
+                    @foreach(['Tim Pembina','Tim Pengawas','Tim Pengurus','Tim Tenaga Ahli'] as $k)
                     <option value="{{ $k }}" {{ old('kelompok', $tim->kelompok) === $k ? 'selected' : '' }}>{{ $k }}</option>
                     @endforeach
                 </select>
