@@ -37,7 +37,7 @@
     /* Hero Section */
     .hero-section {
         display: grid;
-        grid-template-columns: 1fr 1.4fr;
+        grid-template-columns: 1fr 1fr;
         gap: 0;
         align-items: start;
         background: transparent;
@@ -68,7 +68,6 @@
         background: transparent;
         display: flex;
         flex-direction: column;
-        max-height: 600px;
     }
 
     .hero-badge {
@@ -117,10 +116,10 @@
     .hero-slide {
         grid-area: 1 / 1;
         width: 100%;
-        max-height: 600px;
-        height: 600px;
+        height: auto;
+        max-height: 540px;
         display: block;
-        object-fit: cover;
+        object-fit: contain;
         object-position: right center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
@@ -130,10 +129,10 @@
     .hero-slide.active {
         grid-area: 1 / 1;
         width: 100%;
-        max-height: 600px;
-        height: 600px;
+        height: auto;
+        max-height: 540px;
         display: block;
-        object-fit: cover;
+        object-fit: contain;
         object-position: right center;
         opacity: 1;
         z-index: 2;
