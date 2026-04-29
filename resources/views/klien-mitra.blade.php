@@ -45,50 +45,55 @@
 .km-cat-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    gap: 24px;
 }
 
-/* ── Category card (reference style) ────────────── */
+/* ── Category card — style layanan (dark gradient) ── */
 .km-cat-card {
-    background: #fff;
-    border: 1px solid #e8edf5;
-    border-radius: 14px;
-    padding: 18px 20px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1a3a8a 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px 24px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 16px;
     cursor: pointer;
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-decoration: none;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
+}
+.km-cat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
 }
 .km-cat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(13,43,94,0.12);
-    border-color: #bae6fd;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
+    background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
 }
-.km-cat-card::after {
-    content: '';
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, #1a6fc4, #0d2b5e);
-    border-radius: 14px 0 0 14px;
-    opacity: 0;
-    transition: opacity 0.22s;
-}
-.km-cat-card:hover::after { opacity: 1; }
+.km-cat-card:hover::before { left: -30%; top: -30%; }
 
-/* Logo box */
+/* Logo/icon box — gold accent */
 .km-cat-logo {
-    width: 64px; height: 64px;
-    background: #e8f0fb;
-    border-radius: 12px;
+    width: 70px; height: 70px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    overflow: hidden;
-    border: 1px solid #dbeafe;
+    overflow: visible;
+    border: 1px solid rgba(255,255,255,0.2);
     position: relative;
+    transition: all 0.3s ease;
 }
 .km-cat-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .km-cat-logo-grid {
@@ -100,35 +105,41 @@
     border-radius: 3px;
 }
 .km-cat-logo-icon {
-    font-size: 1.6rem; color: #1a6fc4;
+    font-size: 2rem;
+    color: #fbbf24; /* gold */
 }
+.km-cat-card:hover .km-cat-logo {
+    background: #fff;
+    transform: scale(1.1) rotate(5deg);
+}
+.km-cat-card:hover .km-cat-logo-icon { color: #1e3a8a; }
 .km-cat-count {
-    position: absolute; bottom: -3px; right: -3px;
-    background: #1a6fc4; color: #fff;
-    font-size: 0.6rem; font-weight: 800;
-    width: 20px; height: 20px;
+    position: absolute; bottom: -5px; right: -5px;
+    background: #fbbf24; color: #0d2b5e;
+    font-size: 0.65rem; font-weight: 900;
+    width: 22px; height: 22px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    border: 2px solid #fff;
+    border: 2px solid #1e3a8a;
 }
 
 /* Text side */
-.km-cat-text { flex: 1; min-width: 0; }
+.km-cat-text { flex: 1; min-width: 0; width: 100%; }
 .km-cat-name {
-    font-size: 0.97rem; font-weight: 800;
-    color: #0d2b5e; margin: 0 0 4px;
-    line-height: 1.3;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 1rem; font-weight: 700;
+    color: #ffffff; margin: 0 0 4px;
+    line-height: 1.4;
 }
 .km-cat-sub {
-    font-size: 0.78rem; color: #94a3b8; margin: 0 0 6px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.65); margin: 0 0 8px;
 }
 .km-cat-link {
-    font-size: 0.78rem; font-weight: 700; color: #1a6fc4;
-    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.8rem; font-weight: 700; color: #fbbf24;
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
     text-decoration: none;
+    transition: gap 0.2s;
 }
-.km-cat-card:hover .km-cat-link { color: #0d2b5e; }
+.km-cat-card:hover .km-cat-link { color: #fff; gap: 8px; }
 
 /* ── Client modal ────────────────────────────────── */
 .km-overlay {
