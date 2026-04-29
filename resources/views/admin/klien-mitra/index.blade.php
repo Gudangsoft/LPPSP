@@ -38,7 +38,7 @@
         </tbody>
     </table>
     <div style="margin-top: 15px;">
-        {{ $klienMitras->links() }}
+        {{ $klienMitras->links('vendor.pagination.admin') }}
     </div>
 </div>
 @endsection

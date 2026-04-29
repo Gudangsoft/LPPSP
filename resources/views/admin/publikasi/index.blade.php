@@ -32,7 +32,7 @@
         </tbody>
     </table>
     <div style="margin-top: 15px;">
-        {{ $publikasis->links() }}
+        {{ $publikasis->links('vendor.pagination.admin') }}
     </div>
 </div>
 @endsection

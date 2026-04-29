@@ -37,7 +37,7 @@
         </tbody>
     </table>
     <div style="margin-top: 15px;">
-        {{ $kontaks->links() }}
+        {{ $kontaks->links('vendor.pagination.admin') }}
     </div>
 </div>
 @endsection
