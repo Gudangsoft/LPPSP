@@ -9,20 +9,26 @@ class KlienMitraController extends Controller
 {
     public function index()
     {
-        $klienMitras = KlienMitra::aktif()
-            ->orderBy('urutan')
-            ->orderBy('nama')
-            ->paginate(9);
+        $kategoriOrder = [
+            'Kementerian/Lembaga',
+            'Pemerintah Daerah',
+            'OPD/Instansi Teknis',
+            'Lembaga Pendidikan',
+            'Dunia Usaha',
+            'Lembaga Mitra',
+        ];
 
-        // Load pengalaman for clients on current page (eager load layanan)
-        $names = $klienMitras->pluck('nama');
+        // All active clients grouped by kategori
+        $allKlien = KlienMitra::aktif()->orderBy('urutan')->orderBy('nama')->get();
+        $grouped  = $allKlien->groupBy('kategori');
+
+        // All pengalaman for modal projects
         $pengalamanMap = Pengalaman::where('aktif', true)
-            ->whereIn('klien', $names)
             ->with('layanan')
             ->orderByDesc('tahun')
             ->get()
             ->groupBy('klien');
 
-        return view('klien-mitra', compact('klienMitras', 'pengalamanMap'));
+        return view('klien-mitra', compact('grouped', 'kategoriOrder', 'pengalamanMap'));
     }
 }
