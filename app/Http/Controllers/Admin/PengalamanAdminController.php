@@ -176,4 +176,22 @@ class PengalamanAdminController extends Controller
         $pengalaman->delete();
         return redirect()->route('admin.pengalaman.index')->with('success', 'Pengalaman berhasil dihapus.');
     }
+
+    public function destroyBulk(Request $request)
+    {
+        $request->validate(['ids' => 'required|array', 'ids.*' => 'integer|exists:pengalamans,id']);
+
+        $pengalamans = Pengalaman::whereIn('id', $request->ids)->get();
+
+        foreach ($pengalamans as $p) {
+            if ($p->gambar) Storage::disk('public')->delete($p->gambar);
+            foreach ((is_array($p->galeri) ? $p->galeri : []) as $img) {
+                Storage::disk('public')->delete($img);
+            }
+            $p->delete();
+        }
+
+        return redirect()->route('admin.pengalaman.index')
+            ->with('success', $pengalamans->count() . ' data pengalaman berhasil dihapus.');
+    }
 }

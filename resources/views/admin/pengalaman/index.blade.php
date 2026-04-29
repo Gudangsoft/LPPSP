@@ -129,6 +129,56 @@
     }
     .peng-empty i { font-size: 3rem; display: block; margin-bottom: 14px; color: #cbd5e1; }
 
+    /* Checkbox select */
+    .peng-card { position: relative; }
+    .peng-check-wrap {
+        position: absolute;
+        top: 12px; left: 12px;
+        z-index: 2;
+    }
+    .peng-check-wrap input[type=checkbox] {
+        width: 18px; height: 18px;
+        accent-color: #1a56db;
+        cursor: pointer;
+    }
+    .peng-card.selected {
+        border-color: #1a56db;
+        box-shadow: 0 0 0 2px rgba(26,86,219,0.18), 0 8px 28px rgba(13,43,94,0.11);
+    }
+
+    /* Bulk toolbar */
+    #bulkToolbar {
+        display: none;
+        align-items: center;
+        gap: 14px;
+        background: #fff;
+        border: 1px solid #1a56db;
+        border-radius: 12px;
+        padding: 12px 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 16px rgba(26,86,219,0.1);
+    }
+    #bulkToolbar.visible { display: flex; }
+    .bulk-count {
+        font-size: 0.9rem; font-weight: 700; color: #0d2b5e;
+    }
+    .bulk-btn-del {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 18px; border-radius: 8px;
+        background: #dc2626; color: #fff;
+        font-size: 0.85rem; font-weight: 700;
+        border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .bulk-btn-del:hover { background: #b91c1c; }
+    .bulk-btn-cancel {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 16px; border-radius: 8px;
+        background: #f1f5f9; color: #64748b;
+        font-size: 0.85rem; font-weight: 600;
+        border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .bulk-btn-cancel:hover { background: #e2e8f0; }
+
     @media (max-width: 900px) { .peng-grid { grid-template-columns: 1fr; } }
     @media (max-width: 700px) { .peng-stats { grid-template-columns: repeat(2, 1fr); } }
 </style>
@@ -139,6 +189,9 @@
 <div class="admin-page-header">
     <h1><i class="fas fa-briefcase" style="color:#1a6fc4;margin-right:10px;"></i>Kelola Pengalaman</h1>
     <div style="display:flex;gap:10px;">
+        <button id="btnSelectMode" onclick="toggleSelectMode()" class="btn btn-outline">
+            <i class="fas fa-check-square"></i> Pilih
+        </button>
         <button onclick="document.getElementById('importModal').style.display='flex'" class="btn btn-outline">
             <i class="fas fa-file-excel"></i> Import Excel
         </button>
@@ -285,10 +338,31 @@
 </div>
 </form>
 
+{{-- Bulk Toolbar --}}
+<form id="bulkForm" action="{{ route('admin.pengalaman.bulk-destroy') }}" method="POST" style="margin:0;">
+    @csrf @method('DELETE')
+    <div id="bulkToolbar">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.85rem;color:#64748b;font-weight:600;">
+            <input type="checkbox" id="checkAll" style="width:17px;height:17px;accent-color:#1a56db;" onchange="toggleAll(this)">
+            Pilih Semua
+        </label>
+        <span class="bulk-count" id="bulkCount">0 dipilih</span>
+        <button type="button" class="bulk-btn-del" onclick="confirmBulkDelete()">
+            <i class="fas fa-trash"></i> Hapus yang Dipilih
+        </button>
+        <button type="button" class="bulk-btn-cancel" onclick="cancelSelectMode()">
+            <i class="fas fa-times"></i> Batal
+        </button>
+    </div>
+</form>
+
 {{-- Card Grid --}}
-<div class="peng-grid">
+<div class="peng-grid" id="pengGrid">
     @forelse($pengalamans as $p)
-    <div class="peng-card">
+    <div class="peng-card" data-id="{{ $p->id }}">
+        <div class="peng-check-wrap" style="display:none;">
+            <input type="checkbox" name="ids[]" value="{{ $p->id }}" form="bulkForm" class="card-check" onchange="updateBulkCount()">
+        </div>
         <div class="peng-card-top">
             @if($p->layanan)
                 <span class="peng-layanan-badge"><i class="fas fa-tag" style="margin-right:4px;"></i>{{ $p->layanan->judul }}</span>
@@ -350,6 +424,79 @@
     </div>
     @endforelse
 </div>
+
+@push('scripts')
+<script>
+let selectMode = false;
+
+function toggleSelectMode() {
+    selectMode = !selectMode;
+    const toolbar  = document.getElementById('bulkToolbar');
+    const checks   = document.querySelectorAll('.peng-check-wrap');
+    const btnMode  = document.getElementById('btnSelectMode');
+
+    if (selectMode) {
+        toolbar.classList.add('visible');
+        checks.forEach(c => c.style.display = 'block');
+        btnMode.innerHTML = '<i class="fas fa-times"></i> Batal';
+        btnMode.style.background = '#fee2e2';
+        btnMode.style.color = '#dc2626';
+        btnMode.style.borderColor = '#fca5a5';
+    } else {
+        cancelSelectMode();
+    }
+}
+
+function cancelSelectMode() {
+    selectMode = false;
+    document.getElementById('bulkToolbar').classList.remove('visible');
+    document.querySelectorAll('.peng-check-wrap').forEach(c => c.style.display = 'none');
+    document.querySelectorAll('.card-check').forEach(c => c.checked = false);
+    document.querySelectorAll('.peng-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('checkAll').checked = false;
+    updateBulkCount();
+    const btnMode = document.getElementById('btnSelectMode');
+    btnMode.innerHTML = '<i class="fas fa-check-square"></i> Pilih';
+    btnMode.style.background = '';
+    btnMode.style.color = '';
+    btnMode.style.borderColor = '';
+}
+
+function toggleAll(cb) {
+    document.querySelectorAll('.card-check').forEach(c => {
+        c.checked = cb.checked;
+        c.closest('.peng-card').classList.toggle('selected', cb.checked);
+    });
+    updateBulkCount();
+}
+
+function updateBulkCount() {
+    const checked = document.querySelectorAll('.card-check:checked').length;
+    document.getElementById('bulkCount').textContent = checked + ' dipilih';
+    document.getElementById('checkAll').indeterminate =
+        checked > 0 && checked < document.querySelectorAll('.card-check').length;
+    if (checked === document.querySelectorAll('.card-check').length && checked > 0)
+        document.getElementById('checkAll').checked = true;
+    else if (checked === 0)
+        document.getElementById('checkAll').checked = false;
+}
+
+document.addEventListener('change', function(e) {
+    if (e.target.classList.contains('card-check')) {
+        e.target.closest('.peng-card').classList.toggle('selected', e.target.checked);
+        updateBulkCount();
+    }
+});
+
+function confirmBulkDelete() {
+    const count = document.querySelectorAll('.card-check:checked').length;
+    if (count === 0) { alert('Pilih minimal 1 data terlebih dahulu.'); return; }
+    if (confirm(count + ' data pengalaman akan dihapus permanen. Lanjutkan?')) {
+        document.getElementById('bulkForm').submit();
+    }
+}
+</script>
+@endpush
 
 {{-- Pagination --}}
 @if($pengalamans->lastPage() > 1)

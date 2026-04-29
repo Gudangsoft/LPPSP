@@ -37,7 +37,7 @@
     /* Hero Section */
     .hero-section {
         display: grid;
-        grid-template-columns: 1.2fr 1fr;
+        grid-template-columns: 1fr 1.4fr;
         gap: 0;
         align-items: start;
         background: transparent;
@@ -55,7 +55,7 @@
     .hero-content {
         background: var(--white);
         border-radius: var(--radius) 0 0 var(--radius);
-        padding: 48px 60px;
+        padding: 44px 44px;
         position: relative;
         z-index: 1;
         align-self: stretch;
@@ -85,11 +85,11 @@
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 800;
         color: var(--text-dark);
-        line-height: 1.2;
-        margin-bottom: 24px;
+        line-height: 1.25;
+        margin-bottom: 20px;
     }
 
     .hero-title span {
@@ -476,11 +476,11 @@
             min-height: auto;
         }
         .hero-content {
-            padding: 48px 32px;
+            padding: 36px 28px;
             text-align: center;
         }
         .hero-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
         }
         .hero-visual {
             order: -1;

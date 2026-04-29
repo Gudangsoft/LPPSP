@@ -75,6 +75,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Pengalaman
     Route::post('/pengalaman/import', [PengalamanAdminController::class, 'import'])->name('pengalaman.import');
     Route::get('/pengalaman/template', [PengalamanAdminController::class, 'template'])->name('pengalaman.template');
+    Route::delete('/pengalaman/bulk-destroy', [PengalamanAdminController::class, 'destroyBulk'])->name('pengalaman.bulk-destroy');
     Route::resource('/pengalaman', PengalamanAdminController::class)->except(['show']);
 
     // Klien/Mitra
