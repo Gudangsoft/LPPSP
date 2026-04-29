@@ -152,39 +152,68 @@
         flex-shrink: 0;
     }
 
-    /* Tags */
+    /* Tags — Prinsip Lembaga (style layanan) */
     .tk-tags {
         display: flex;
-        gap: 16px;
+        gap: 20px;
         flex-wrap: wrap;
     }
     .tk-tag {
-        background: var(--white);
-        color: var(--primary);
-        padding: 12px 28px;
-        border-radius: 50px;
+        flex: 1 1 180px;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1a3a8a 100%);
+        color: #ffffff;
+        padding: 28px 20px;
+        border-radius: 20px;
         font-weight: 700;
         font-size: 1rem;
-        border: 2px solid var(--accent-light);
+        border: 1px solid rgba(255,255,255,0.1);
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 10px;
-        transition: all 0.3s ease;
-        box-shadow: var(--shadow-sm);
+        justify-content: center;
+        gap: 14px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
+        position: relative;
+        overflow: hidden;
+        cursor: default;
     }
-    .tk-tag i {
-        color: var(--primary-light);
-        font-size: 1.1rem;
+    .tk-tag::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
     }
     .tk-tag:hover {
-        background: var(--primary);
-        color: var(--white);
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-md);
-        border-color: var(--primary);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
+        background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+        color: #ffffff;
+        border-color: rgba(255,255,255,0.2);
+    }
+    .tk-tag:hover::before { left: -30%; top: -30%; }
+    .tk-tag i {
+        font-size: 2rem;
+        color: #fbbf24;
+        width: 54px; height: 54px;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
     }
     .tk-tag:hover i {
-        color: var(--white);
+        background: #ffffff;
+        color: #1e3a8a;
+        transform: scale(1.1) rotate(5deg);
     }
 
     @media (max-width: 992px) {
@@ -478,18 +507,24 @@
         white-space: pre-line;
     }
     .tim-modal-skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
         margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid #f1f5f9;
     }
-    .tim-skill-tag {
-        background: #e8f0fb;
-        color: #1a56db;
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 4px 12px;
-        border-radius: 50px;
+    .tim-modal-skills-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 8px;
+    }
+    .tim-modal-skills-text {
+        font-size: 0.93rem;
+        line-height: 1.8;
+        color: #374151;
+        text-align: justify;
+        margin: 0;
     }
 
     @media (max-width: 992px) {
@@ -690,9 +725,9 @@
     @endif
 
     <!-- Prinsip Lembaga -->
-    <div style="text-align:center;">
-        <h3 style="font-size:1.5rem;font-weight:800;color:var(--primary);margin-bottom:28px;">Prinsip Lembaga</h3>
-        <div class="tk-tags" style="justify-content:center;gap:20px;">
+    <div>
+        <h3 style="font-size:1.5rem;font-weight:800;color:var(--primary);margin-bottom:28px;text-align:center;">Prinsip Lembaga</h3>
+        <div class="tk-tags">
             <span class="tk-tag"><i class="fas fa-briefcase"></i> Profesional</span>
             <span class="tk-tag"><i class="fas fa-shield-alt"></i> Independen</span>
             <span class="tk-tag"><i class="fas fa-check-double"></i> Berintegritas</span>
@@ -765,12 +800,15 @@ function openTimModal(id) {
     if (bio) { bioEl.textContent = bio; bioWrap.style.display = 'block'; }
     else     { bioWrap.style.display = 'none'; }
 
-    // Skills
+    // Skills — tampilkan sebagai teks naratif rata kanan-kiri
     const skillsEl = document.getElementById('modalSkills');
     if (keahlian) {
-        skillsEl.innerHTML = keahlian.split(',')
-            .map(s => s.trim()).filter(Boolean)
-            .map(s => `<span class="tim-skill-tag">${s}</span>`).join('');
+        const items = keahlian.split(',').map(s => s.trim()).filter(Boolean);
+        const narrative = items.join(', ') + (items.length ? '.' : '');
+        skillsEl.innerHTML = `
+            <p class="tim-modal-skills-label">Bidang Keahlian</p>
+            <p class="tim-modal-skills-text">${narrative}</p>
+        `;
     } else {
         skillsEl.innerHTML = '';
     }
