@@ -41,6 +41,9 @@
                 <li><a href="{{ route('admin.profile.edit') }}" class="{{ request()->routeIs('admin.profile*') ? 'active' : '' }}">
                     <i class="fas fa-id-card"></i> Profil Lembaga
                 </a></li>
+                <li><a href="{{ route('admin.user-profile.edit') }}" class="{{ request()->routeIs('admin.user-profile*') ? 'active' : '' }}">
+                    <i class="fas fa-user-circle"></i> Profil Pengguna
+                </a></li>
                 <li><a href="{{ route('admin.layanan.index') }}" class="{{ request()->routeIs('admin.layanan*') ? 'active' : '' }}">
                     <i class="fas fa-concierge-bell"></i> Layanan
                 </a></li>
@@ -92,10 +95,10 @@
     <div class="admin-main">
         <header class="admin-header">
             <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-            <div class="admin-user">
+            <a href="{{ route('admin.user-profile.edit') }}" class="admin-user" style="text-decoration:none; color:inherit; cursor:pointer;">
                 <i class="fas fa-user-circle"></i>
                 <span>{{ auth()->user()->name ?? 'Admin' }}</span>
-            </div>
+            </a>
         </header>
 
         <div class="admin-content">

@@ -19,14 +19,14 @@
         border-radius: var(--radius);
         padding: 36px 40px;
     }
-    
+
     .tk-box-title {
         font-size: 1.7rem;
         font-weight: 800;
         margin-bottom: 14px;
         color: var(--primary);
     }
-    
+
     .tk-top-desc {
         color: var(--text);
         line-height: 1.7;
@@ -34,7 +34,7 @@
         font-weight: 500;
         margin-bottom: 24px;
     }
-    
+
     .tk-btn {
         display: inline-block;
         background: var(--primary);
@@ -47,7 +47,7 @@
         transition: var(--transition);
         box-shadow: var(--shadow-sm);
     }
-    
+
     .tk-btn:hover {
         background: var(--gold);
         color: var(--primary);

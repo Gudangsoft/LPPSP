@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\KontakAdminController;
 use App\Http\Controllers\Admin\TimOrganisasiAdminController;
 use App\Http\Controllers\Admin\GaleriSliderAdminController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Public Routes ────────────────────────────────────────────────────────────
@@ -62,6 +63,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Profile
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+
+    // User Profile
+    Route::get('/user-profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
+    Route::put('/user-profile', [UserProfileController::class, 'update'])->name('user-profile.update');
 
 
     // Layanan
