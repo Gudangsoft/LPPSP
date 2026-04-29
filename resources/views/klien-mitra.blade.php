@@ -37,9 +37,9 @@
 }
 .km-section-head h2 {
     font-size: 1.6rem; font-weight: 800; color: #0d2b5e; margin: 0 0 6px;
-    border-left: 4px solid #1a6fc4; padding-left: 16px;
+    text-align: center;
 }
-.km-section-head p { font-size: 0.88rem; color: #64748b; margin: 0 0 0 20px; }
+.km-section-head p { font-size: 0.88rem; color: #64748b; margin: 0; text-align: center; }
 
 /* ── Category grid ───────────────────────────────── */
 .km-cat-grid {
