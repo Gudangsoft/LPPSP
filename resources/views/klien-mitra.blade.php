@@ -7,47 +7,6 @@
 /* ── Page ────────────────────────────────────────── */
 .km-page { padding-bottom: 80px; background: #f5f7fb; min-height: 80vh; }
 
-/* ── Hero ────────────────────────────────────────── */
-.km-hero {
-    background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 60%, #0f4c81 100%);
-    padding: 64px 0 48px;
-    position: relative; overflow: hidden;
-}
-.km-hero::before {
-    content: '\f2b5';
-    font-family: 'Font Awesome 6 Free'; font-weight: 900;
-    position: absolute; right: 7%; top: 50%; transform: translateY(-50%);
-    font-size: 13rem; color: rgba(255,255,255,0.04); line-height: 1;
-}
-.km-hero .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-.km-hero-label {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.9); font-size: 0.77rem; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 6px 18px; border-radius: 50px; margin-bottom: 18px;
-}
-.km-hero h1 {
-    font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
-    color: #fff; margin: 0 0 14px; line-height: 1.25;
-}
-.km-hero p {
-    font-size: 1rem; color: rgba(255,255,255,0.75);
-    line-height: 1.75; max-width: 580px; margin: 0;
-}
-
-/* ── Stats ───────────────────────────────────────── */
-.km-stats {
-    background: #fff; border-bottom: 1px solid #e8edf5; padding: 18px 0;
-}
-.km-stats .container {
-    max-width: 1160px; margin: 0 auto; padding: 0 24px;
-    display: flex; align-items: center; gap: 36px; flex-wrap: wrap;
-}
-.km-stat-num { font-size: 1.5rem; font-weight: 800; color: #0d2b5e; line-height: 1; }
-.km-stat-lbl { font-size: 0.77rem; color: #64748b; font-weight: 600; line-height: 1.3; margin-top: 2px; }
-.km-stat-div { width: 1px; height: 34px; background: #e2e8f0; }
-
 /* ── Content ─────────────────────────────────────── */
 .km-content { max-width: 1160px; margin: 0 auto; padding: 48px 24px 0; }
 .km-section-head {
@@ -327,39 +286,6 @@
 @endphp
 
 <div class="km-page">
-
-    {{-- ── HERO ──────────────────────────────────── --}}
-    <section class="km-hero">
-        <div class="container">
-            <div class="km-hero-label"><i class="fas fa-handshake"></i> Jejaring Kerjasama</div>
-            <h1>Klien & Mitra LPPSP</h1>
-            <p>LPPSP membuka ruang kolaborasi bersama Kementerian/Lembaga, Pemerintah Daerah, OPD/Instansi Teknis, Lembaga Pendidikan, Dunia Usaha, dan Lembaga Mitra Pembangunan.</p>
-        </div>
-    </section>
-
-    {{-- ── STATS ──────────────────────────────────── --}}
-    @php $totalKlien = $grouped->flatten()->count(); @endphp
-    <div class="km-stats">
-        <div class="container">
-            <div>
-                <div class="km-stat-num">{{ $totalKlien }}</div>
-                <div class="km-stat-lbl">Total Klien<br>& Mitra</div>
-            </div>
-            <div class="km-stat-div"></div>
-            <div>
-                <div class="km-stat-num">{{ $grouped->count() }}</div>
-                <div class="km-stat-lbl">Kategori<br>Kerjasama</div>
-            </div>
-            @php $totalProyek = collect($allClientData)->sum(function($c) { return count($c['proyek']); }); @endphp
-            @if($totalProyek)
-            <div class="km-stat-div"></div>
-            <div>
-                <div class="km-stat-num">{{ $totalProyek }}+</div>
-                <div class="km-stat-lbl">Proyek<br>Terdokumentasi</div>
-            </div>
-            @endif
-        </div>
-    </div>
 
     {{-- ── CATEGORY GRID ───────────────────────────── --}}
     <div class="km-content">

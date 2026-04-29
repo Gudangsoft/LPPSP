@@ -141,6 +141,14 @@
             margin: 0;
         }
 
+        .lu-desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.72);
+            line-height: 1.65;
+            margin: 0;
+            text-align: center;
+        }
+
         /* Keunggulan */
         .ku-grid {
             display: grid;
@@ -275,6 +283,9 @@
                             <i class="{{ $iconMap[$layanan->judul] ?? 'fas fa-check-circle' }}"></i>
                         </div>
                         <h4 class="lu-title">{{ $layanan->judul }}</h4>
+                        @if($layanan->deskripsi)
+                            <p class="lu-desc">{{ $layanan->deskripsi }}</p>
+                        @endif
                     </div>
                 @empty
                     @foreach($iconMap as $judul => $icon)

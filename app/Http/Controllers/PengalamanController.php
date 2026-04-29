@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Layanan;
 use App\Models\Pengalaman;
 
 class PengalamanController extends Controller
 {
     public function index()
     {
-        $pengalamans = Pengalaman::aktif()->paginate(12);
-        $kategori    = Pengalaman::select('kategori')->distinct()->pluck('kategori');
-        $profile     = \App\Models\Profile::first();
+        $profile   = \App\Models\Profile::first();
+        $layanans  = Layanan::where('aktif', true)->orderBy('urutan')->get();
 
-        return view('pengalaman', compact('pengalamans', 'kategori', 'profile'));
+        // Group active pengalaman by layanan_id for modal data
+        $pengalamanByLayanan = Pengalaman::aktif()
+            ->whereNotNull('layanan_id')
+            ->orderByDesc('tahun')
+            ->get()
+            ->groupBy('layanan_id');
+
+        // Pengalaman without layanan (ungrouped)
+        $pengalamanLain = Pengalaman::aktif()
+            ->whereNull('layanan_id')
+            ->orderByDesc('tahun')
+            ->get();
+
+        return view('pengalaman', compact('profile', 'layanans', 'pengalamanByLayanan', 'pengalamanLain'));
     }
 
     public function show(Pengalaman $pengalaman)
