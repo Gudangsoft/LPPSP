@@ -47,7 +47,7 @@
         position: relative;
         overflow: hidden;
         border: 1px solid var(--border);
-        min-height: 560px;
+        min-height: 0;
     }
 
     /* Abstract shapes for premium feel */
@@ -107,30 +107,26 @@
     .hero-visual {
         position: relative;
         z-index: 1;
-        height: 100%;
-        min-height: 560px;
         width: 100%;
         overflow: hidden;
         background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .hero-slide {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         position: absolute;
         top: 0; left: 0;
+        height: 100%;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
-        background: var(--white);
+        background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
     }
-    
+
     .hero-slide.active {
+        position: relative;
+        height: auto;
         opacity: 1;
-        transform: scale(1);
         z-index: 2;
     }
 
