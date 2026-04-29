@@ -6,7 +6,6 @@ use App\Models\Layanan;
 use App\Models\Pengalaman;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
@@ -15,13 +14,12 @@ class PengalamanImport implements ToModel, WithStartRow, SkipsEmptyRows, SkipsOn
 {
     use SkipsErrors;
 
-    // Cache layanan lookup to avoid N+1 queries
     private array $layananCache = [];
     public int $importedCount = 0;
 
     public function startRow(): int
     {
-        return 2; // Skip header row
+        return 2;
     }
 
     public function model(array $row): ?Pengalaman
@@ -31,28 +29,26 @@ class PengalamanImport implements ToModel, WithStartRow, SkipsEmptyRows, SkipsOn
         // 1 = Layanan Utama
         // 2 = Judul Pekerjaan/Kegiatan/Aktivitas
         // 3 = Target/Kelompok Sasaran
-        // 4 = Klien/Pemberi Pekerjaan
-        // 5 = Lokasi
-        // 6 = Tahun Pelaksanaan
-        // 7 = Deskripsi Singkat
+        // 4 = Jenis Klien/Pemberi Pekerjaan
+        // 5 = Klien/Pemberi Pekerjaan
+        // 6 = Lokasi
+        // 7 = Tahun Pelaksanaan
+        // 8 = Deskripsi Singkat
 
         $judul = trim($row[2] ?? '');
-        $klien = trim($row[4] ?? '');
-        $tahun = intval($row[6] ?? date('Y'));
+        $klien = trim($row[5] ?? '');
+        $tahun = intval($row[7] ?? date('Y'));
 
-        // Skip if required fields are empty
         if (empty($judul) || empty($klien)) {
             return null;
         }
 
-        // Validate tahun
         if ($tahun < 1990 || $tahun > 2100) {
             $tahun = date('Y');
         }
 
-        // Resolve layanan_id by matching judul (case-insensitive partial match)
-        $layananNama  = trim($row[1] ?? '');
-        $layananId    = $this->resolveLayananId($layananNama);
+        $layananNama = trim($row[1] ?? '');
+        $layananId   = $this->resolveLayananId($layananNama);
 
         $this->importedCount++;
 
@@ -60,10 +56,11 @@ class PengalamanImport implements ToModel, WithStartRow, SkipsEmptyRows, SkipsOn
             'layanan_id'     => $layananId,
             'judul'          => $judul,
             'target_sasaran' => trim($row[3] ?? '') ?: null,
+            'jenis_klien'    => trim($row[4] ?? '') ?: null,
             'klien'          => $klien,
-            'lokasi'         => trim($row[5] ?? '') ?: null,
+            'lokasi'         => trim($row[6] ?? '') ?: null,
             'tahun'          => $tahun,
-            'deskripsi'      => trim($row[7] ?? '') ?: null,
+            'deskripsi'      => trim($row[8] ?? '') ?: null,
             'aktif'          => true,
             'unggulan'       => false,
         ]);

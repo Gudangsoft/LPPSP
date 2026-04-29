@@ -2,16 +2,45 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromArray;
+use App\Models\Pengalaman;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
-class PengalamanTemplateExport implements FromArray, WithHeadings, WithStyles, WithColumnWidths
+class PengalamanTemplateExport implements FromCollection, WithHeadings, WithStyles, WithColumnWidths, WithMapping
 {
+    private int $no = 0;
+
+    public function collection()
+    {
+        return Pengalaman::with('layanan')
+            ->orderByDesc('tahun')
+            ->orderBy('id')
+            ->get();
+    }
+
+    public function map($pengalaman): array
+    {
+        $this->no++;
+
+        return [
+            $this->no,
+            $pengalaman->layanan?->judul ?? '',
+            $pengalaman->judul,
+            $pengalaman->target_sasaran ?? '',
+            $pengalaman->jenis_klien ?? '',
+            $pengalaman->klien,
+            $pengalaman->lokasi ?? '',
+            $pengalaman->tahun,
+            $pengalaman->deskripsi ?? '',
+        ];
+    }
+
     public function headings(): array
     {
         return [
@@ -19,36 +48,11 @@ class PengalamanTemplateExport implements FromArray, WithHeadings, WithStyles, W
             'Layanan Utama',
             'Judul Pekerjaan/Kegiatan/Aktivitas',
             'Target/Kelompok Sasaran',
+            'Jenis Klien/Pemberi Pekerjaan',
             'Klien/Pemberi Pekerjaan',
             'Lokasi',
             'Tahun Pelaksanaan',
             'Deskripsi Singkat Pekerjaan/Kegiatan/Aktivitas',
-        ];
-    }
-
-    public function array(): array
-    {
-        return [
-            [
-                1,
-                'Pendampingan Perencanaan Pembangunan Daerah',
-                'Penyusunan Dokumen Ranwal RKPD Tahun 2027',
-                'Pemerintah daerah dan perangkat daerah',
-                'Bapperida Kabupaten Merauke',
-                'Kabupaten Merauke',
-                2025,
-                'Kegiatan ini berfokus pada penyusunan dokumen ranwal rkpd tahun 2027...',
-            ],
-            [
-                2,
-                'Pengkajian dan Penelitian',
-                'Sub Kegiatan Pembinaan Akuntansi, Pelaporan dan Pertanggungjawaban',
-                'Pemerintah daerah/perangkat daerah terkait',
-                'Pemerintah Provinsi Kepulauan Riau',
-                'Provinsi Kepulauan Riau',
-                2025,
-                'Kegiatan ini merupakan bagian dari sub kegiatan pembinaan akuntansi...',
-            ],
         ];
     }
 
@@ -70,10 +74,11 @@ class PengalamanTemplateExport implements FromArray, WithHeadings, WithStyles, W
             'B' => 30,
             'C' => 45,
             'D' => 35,
-            'E' => 35,
-            'F' => 25,
-            'G' => 18,
-            'H' => 55,
+            'E' => 30,
+            'F' => 35,
+            'G' => 25,
+            'H' => 18,
+            'I' => 55,
         ];
     }
 }

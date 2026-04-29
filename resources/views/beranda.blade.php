@@ -39,7 +39,7 @@
         display: grid;
         grid-template-columns: 1fr 1.4fr;
         gap: 0;
-        align-items: start;
+        align-items: stretch;
         background: transparent;
         padding: 0;
         border-radius: var(--radius);
@@ -58,7 +58,6 @@
         padding: 44px 44px;
         position: relative;
         z-index: 1;
-        align-self: stretch;
     }
 
     .hero-visual {
@@ -118,11 +117,12 @@
     }
 
     .hero-slide.active {
-        position: relative;
-        height: auto;
+        position: absolute;
+        top: 0; left: 0;
+        height: 100%;
         width: 100%;
         display: block;
-        object-fit: unset;
+        object-fit: cover;
         opacity: 1;
         z-index: 2;
     }
@@ -668,7 +668,7 @@
             @endphp
 
             @if(count($sliderImages) > 1)
-                <div class="hero-slider" style="width: 100%; position: relative;">
+                <div class="hero-slider" style="width: 100%; height: 100%; position: relative;">
                     @foreach($sliderImages as $index => $img)
                         <img src="{{ Storage::url($img) }}" alt="Hero Image {{ $index+1 }}" class="hero-slide {{ $index == 0 ? 'active' : '' }}">
                     @endforeach
@@ -679,9 +679,9 @@
                     </div>
                 </div>
             @elseif(count($sliderImages) == 1)
-                <img src="{{ Storage::url($sliderImages[0]) }}" alt="Hero Image" class="hero-slide active" style="width:100%;height:auto;position:relative;opacity:1;">
+                <img src="{{ Storage::url($sliderImages[0]) }}" alt="Hero Image" class="hero-slide active">
             @else
-                <img src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?q=80&w=1200&auto=format&fit=crop" alt="Pembangunan Profesional" class="hero-slide active" style="object-fit: contain; background: var(--white); opacity: 1; transform: scale(1);">
+                <img src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?q=80&w=1200&auto=format&fit=crop" alt="Pembangunan Profesional" class="hero-slide active">
             @endif
         </div>
     </section>

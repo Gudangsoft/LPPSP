@@ -9,7 +9,7 @@ class Pengalaman extends Model
     protected $table = 'pengalamans';
 
     protected $fillable = [
-        'layanan_id', 'judul', 'klien', 'target_sasaran', 'lokasi',
+        'layanan_id', 'judul', 'klien', 'jenis_klien', 'target_sasaran', 'lokasi',
         'tahun', 'deskripsi', 'gambar', 'galeri', 'unggulan', 'aktif',
     ];
 

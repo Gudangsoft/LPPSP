@@ -377,7 +377,7 @@
             <div class="peng-meta">
                 <div class="peng-meta-row">
                     <i class="fas fa-building"></i>
-                    <span>{{ $p->klien }}</span>
+                    <span>{{ $p->klien }}@if($p->jenis_klien) <em style="color:#94a3b8;font-size:0.75rem;"> — {{ $p->jenis_klien }}</em>@endif</span>
                 </div>
                 @if($p->lokasi)
                 <div class="peng-meta-row">
@@ -542,10 +542,11 @@ function confirmBulkDelete() {
                     <tr style="background:#f8fafc;"><td style="padding:5px 8px;color:#64748b;">B</td><td style="padding:5px 8px;">Layanan Utama</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
                     <tr><td style="padding:5px 8px;color:#64748b;">C</td><td style="padding:5px 8px;">Judul Pekerjaan</td><td style="padding:5px 8px;color:#e11d48;font-weight:600;">Wajib</td></tr>
                     <tr style="background:#f8fafc;"><td style="padding:5px 8px;color:#64748b;">D</td><td style="padding:5px 8px;">Target/Kelompok Sasaran</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
-                    <tr><td style="padding:5px 8px;color:#64748b;">E</td><td style="padding:5px 8px;">Klien/Pemberi Pekerjaan</td><td style="padding:5px 8px;color:#e11d48;font-weight:600;">Wajib</td></tr>
-                    <tr style="background:#f8fafc;"><td style="padding:5px 8px;color:#64748b;">F</td><td style="padding:5px 8px;">Lokasi</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
-                    <tr><td style="padding:5px 8px;color:#64748b;">G</td><td style="padding:5px 8px;">Tahun Pelaksanaan</td><td style="padding:5px 8px;color:#e11d48;font-weight:600;">Wajib</td></tr>
-                    <tr style="background:#f8fafc;"><td style="padding:5px 8px;color:#64748b;">H</td><td style="padding:5px 8px;">Deskripsi Singkat</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
+                    <tr><td style="padding:5px 8px;color:#64748b;">E</td><td style="padding:5px 8px;">Jenis Klien/Pemberi Pekerjaan</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
+                    <tr style="background:#f8fafc;"><td style="padding:5px 8px;color:#64748b;">F</td><td style="padding:5px 8px;">Klien/Pemberi Pekerjaan</td><td style="padding:5px 8px;color:#e11d48;font-weight:600;">Wajib</td></tr>
+                    <tr><td style="padding:5px 8px;color:#64748b;">G</td><td style="padding:5px 8px;">Lokasi</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
+                    <tr style="background:#f8fafc;"><td style="padding:5px 8px;color:#64748b;">H</td><td style="padding:5px 8px;">Tahun Pelaksanaan</td><td style="padding:5px 8px;color:#e11d48;font-weight:600;">Wajib</td></tr>
+                    <tr><td style="padding:5px 8px;color:#64748b;">I</td><td style="padding:5px 8px;">Deskripsi Singkat</td><td style="padding:5px 8px;color:#94a3b8;">Opsional</td></tr>
                 </table>
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px;">
                     <p style="margin:0;font-size:0.78rem;color:#64748b;"><i class="fas fa-lightbulb"></i> Baris 1 = header, akan dilewati. Format: <strong>.xlsx / .xls / .csv</strong></p>

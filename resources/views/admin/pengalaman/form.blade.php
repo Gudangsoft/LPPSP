@@ -34,7 +34,7 @@
             @error('judul')<span class="invalid-feedback">{{ $message }}</span>@enderror
         </div>
 
-        {{-- Baris 3: Target & Klien --}}
+        {{-- Baris 3: Target & Jenis Klien --}}
         <div class="form-row-2">
             <div class="form-group">
                 <label class="form-label">Target / Kelompok Sasaran</label>
@@ -44,7 +44,20 @@
                 @error('target_sasaran')<span class="invalid-feedback">{{ $message }}</span>@enderror
             </div>
             <div class="form-group">
-                <label class="form-label">Klien / Pemberi Pekerjaan <span>*</span></label>
+                <label class="form-label">Jenis Klien / Pemberi Pekerjaan</label>
+                <select name="jenis_klien" class="form-control @error('jenis_klien') is-invalid @enderror">
+                    <option value="">— Pilih Jenis Klien —</option>
+                    @foreach(['Pemerintah Daerah','OPD/Instansi Teknis','Lembaga Pendidikan','Lembaga Mitra','Kementerian/Lembaga'] as $jk)
+                    <option value="{{ $jk }}" {{ old('jenis_klien', $pengalaman->jenis_klien) === $jk ? 'selected' : '' }}>{{ $jk }}</option>
+                    @endforeach
+                </select>
+                @error('jenis_klien')<span class="invalid-feedback">{{ $message }}</span>@enderror
+            </div>
+        </div>
+
+        {{-- Baris 4: Klien --}}
+        <div class="form-group">
+            <label class="form-label">Klien / Pemberi Pekerjaan <span>*</span></label>
                 <select id="klienPicker" class="form-control" style="margin-bottom:8px;" onchange="document.getElementById('klienText').value=this.value;this.value='';">
                     <option value="">— Pilih dari daftar Klien/Mitra —</option>
                     @foreach($klienmitras as $km)
@@ -57,10 +70,9 @@
                     placeholder="Atau ketik nama klien / instansi secara manual...">
                 @error('klien')<span class="invalid-feedback">{{ $message }}</span>@enderror
                 <small style="color:#64748b;">Pilih dari dropdown untuk mengisi otomatis, atau ketik langsung di kolom bawah.</small>
-            </div>
         </div>
 
-        {{-- Baris 4: Lokasi & Tahun --}}
+        {{-- Baris 5: Lokasi & Tahun --}}
         <div class="form-row-2">
             <div class="form-group">
                 <label class="form-label">Lokasi</label>

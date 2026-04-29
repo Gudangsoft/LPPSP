@@ -57,6 +57,7 @@ class PengalamanAdminController extends Controller
             'judul'          => 'required|string|max:300',
             'klien'          => 'required|string|max:200',
             'target_sasaran' => 'nullable|string|max:300',
+            'jenis_klien'    => 'nullable|string|max:100',
             'lokasi'         => 'nullable|string|max:200',
             'tahun'          => 'required|integer|min:1990|max:2100',
             'deskripsi'      => 'nullable|string',
@@ -98,6 +99,7 @@ class PengalamanAdminController extends Controller
             'judul'          => 'required|string|max:300',
             'klien'          => 'required|string|max:200',
             'target_sasaran' => 'nullable|string|max:300',
+            'jenis_klien'    => 'nullable|string|max:100',
             'lokasi'         => 'nullable|string|max:200',
             'tahun'          => 'required|integer|min:1990|max:2100',
             'deskripsi'      => 'nullable|string',
@@ -140,7 +142,7 @@ class PengalamanAdminController extends Controller
 
     public function template()
     {
-        return Excel::download(new PengalamanTemplateExport(), 'template-import-pengalaman.xlsx');
+        return Excel::download(new PengalamanTemplateExport(), 'data-pengalaman-' . date('Ymd') . '.xlsx');
     }
 
     public function import(Request $request)
