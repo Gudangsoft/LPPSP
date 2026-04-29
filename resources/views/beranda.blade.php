@@ -39,7 +39,7 @@
         display: grid;
         grid-template-columns: 1.2fr 1fr;
         gap: 0;
-        align-items: stretch;
+        align-items: start;
         background: transparent;
         padding: 0;
         border-radius: var(--radius);
@@ -58,6 +58,7 @@
         padding: 48px 60px;
         position: relative;
         z-index: 1;
+        align-self: stretch;
     }
 
     .hero-visual {
@@ -107,18 +108,21 @@
 
     .hero-slide {
         width: 100%;
-        object-fit: contain;
+        display: block;
         position: absolute;
         top: 0; left: 0;
         height: 100%;
+        object-fit: cover;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
-        background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
     }
 
     .hero-slide.active {
         position: relative;
         height: auto;
+        width: 100%;
+        display: block;
+        object-fit: unset;
         opacity: 1;
         z-index: 2;
     }
