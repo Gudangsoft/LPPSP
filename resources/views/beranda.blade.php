@@ -39,15 +39,14 @@
         display: grid;
         grid-template-columns: 1fr 1.4fr;
         gap: 0;
-        align-items: stretch;
+        align-items: start;
         background: transparent;
         padding: 0;
         border-radius: var(--radius);
         box-shadow: var(--shadow-md);
         position: relative;
-        overflow: visible;
+        overflow: hidden;
         border: 1px solid var(--border);
-        min-height: 0;
     }
 
     .hero-section::before { display: none; }
@@ -67,6 +66,10 @@
         overflow: hidden;
         border-radius: 0 var(--radius) var(--radius) 0;
         background: transparent;
+        /* tinggi mengikuti gambar secara proporsional */
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
     }
 
     .hero-badge {
@@ -105,26 +108,33 @@
     }
 
 
-    .hero-slide {
+    /* Grid-overlay slider: semua slide di-stack, tinggi mengikuti gambar asli */
+    .hero-slider {
+        display: grid;
         width: 100%;
+        flex: 1;
+    }
+
+    .hero-slide {
+        grid-area: 1 / 1;
+        width: 100%;
+        height: auto;
         display: block;
-        position: absolute;
-        top: 0; left: 0;
-        height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
+        border-radius: 0 var(--radius) var(--radius) 0;
     }
 
     .hero-slide.active {
-        position: absolute;
-        top: 0; left: 0;
-        height: 100%;
+        grid-area: 1 / 1;
         width: 100%;
+        height: auto;
         display: block;
-        object-fit: cover;
+        object-fit: contain;
         opacity: 1;
         z-index: 2;
+        border-radius: 0 var(--radius) var(--radius) 0;
     }
 
     .slider-dots {
@@ -668,11 +678,11 @@
             @endphp
 
             @if(count($sliderImages) > 1)
-                <div class="hero-slider" style="width: 100%; height: 100%; position: relative;">
+                <div class="hero-slider">
                     @foreach($sliderImages as $index => $img)
                         <img src="{{ Storage::url($img) }}" alt="Hero Image {{ $index+1 }}" class="hero-slide {{ $index == 0 ? 'active' : '' }}">
                     @endforeach
-                    <div class="slider-dots">
+                    <div class="slider-dots" style="grid-area: 1/1; align-self: end; z-index: 10; position: relative; padding-bottom: 12px;">
                         @foreach($sliderImages as $index => $img)
                             <span class="slider-dot {{ $index == 0 ? 'active' : '' }}" onclick="goToSlide({{ $index }})"></span>
                         @endforeach
