@@ -68,7 +68,7 @@
         background: transparent;
         display: flex;
         flex-direction: column;
-        max-height: 520px;
+        max-height: 600px;
     }
 
     .hero-badge {
@@ -117,11 +117,11 @@
     .hero-slide {
         grid-area: 1 / 1;
         width: 100%;
-        max-height: 520px;
-        height: auto;
+        max-height: 600px;
+        height: 600px;
         display: block;
-        object-fit: contain;
-        object-position: center;
+        object-fit: cover;
+        object-position: right center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
         border-radius: 0 var(--radius) var(--radius) 0;
@@ -130,11 +130,11 @@
     .hero-slide.active {
         grid-area: 1 / 1;
         width: 100%;
-        max-height: 520px;
-        height: auto;
+        max-height: 600px;
+        height: 600px;
         display: block;
-        object-fit: contain;
-        object-position: center;
+        object-fit: cover;
+        object-position: right center;
         opacity: 1;
         z-index: 2;
         border-radius: 0 var(--radius) var(--radius) 0;
