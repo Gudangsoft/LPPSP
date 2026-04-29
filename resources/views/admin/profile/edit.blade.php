@@ -495,6 +495,100 @@
             updateOrder();
         }
     });
+
+    // ─── Client-Side Image Compression ────────────────────────────────
+    // Kompres semua gambar sebelum upload agar lebih cepat
+    const MAX_WIDTH  = 1280; // px max lebar
+    const MAX_HEIGHT = 1280; // px max tinggi
+    const QUALITY    = 0.82; // kualitas JPEG (82%)
+
+    function compressImage(file, maxW, maxH, quality) {
+        return new Promise((resolve) => {
+            // Jika bukan gambar atau sudah kecil (<200KB), skip kompresi
+            if (!file.type.startsWith('image/') || file.size < 204800) {
+                resolve(file);
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    let w = img.naturalWidth, h = img.naturalHeight;
+                    if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+                    if (h > maxH) { w = Math.round(w * maxH / h); h = maxH; }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+
+                    canvas.toBlob((blob) => {
+                        const compressed = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
+                            type: 'image/jpeg', lastModified: Date.now()
+                        });
+                        resolve(compressed);
+                    }, 'image/jpeg', quality);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function replaceFileInput(input, compressedFile) {
+        const dt = new DataTransfer();
+        dt.items.add(compressedFile);
+        input.files = dt.files;
+    }
+
+    // Intercept form submit → kompres semua file input
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form[enctype="multipart/form-data"]');
+        if (!form) return;
+
+        const saveBtn = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Tampilkan loading
+            if (saveBtn) {
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i> Mengompres & Menyimpan...';
+            }
+
+            // Proses semua file input
+            const fileInputs = form.querySelectorAll('input[type="file"]');
+            const jobs = [];
+
+            fileInputs.forEach(input => {
+                if (!input.files || input.files.length === 0) return;
+                const isMultiple = input.multiple;
+
+                if (isMultiple) {
+                    // Multiple files (slider hero images)
+                    const files = Array.from(input.files);
+                    jobs.push(
+                        Promise.all(files.map(f => compressImage(f, MAX_WIDTH, MAX_HEIGHT, QUALITY)))
+                            .then(compressed => {
+                                const dt = new DataTransfer();
+                                compressed.forEach(f => dt.items.add(f));
+                                input.files = dt.files;
+                            })
+                    );
+                } else {
+                    // Single file
+                    jobs.push(
+                        compressImage(input.files[0], MAX_WIDTH, MAX_HEIGHT, QUALITY)
+                            .then(compressed => replaceFileInput(input, compressed))
+                    );
+                }
+            });
+
+            await Promise.all(jobs);
+            form.submit();
+        });
+    });
 </script>
 @endpush
 
