@@ -612,17 +612,18 @@
     <div class="tim-section">
         <h2 class="tim-section-title">Tim Organisasi</h2>
 
-        @foreach(['Tim Pembina','Tim Pengurus','Tim Tenaga Ahli'] as $kelompok)
+        @foreach(['Tim Pembina','Tim Pengawas','Tim Pengurus','Tim Tenaga Ahli'] as $kelompok)
         @if(isset($tims[$kelompok]) && $tims[$kelompok]->isNotEmpty())
         @php
-            $iconMap = ['Tim Pembina'=>'shield-alt','Tim Pengurus'=>'star','Tim Tenaga Ahli'=>'lightbulb'];
-            $ketua   = $tims[$kelompok]->firstWhere('jabatan', 'Ketua');
-            $others  = $tims[$kelompok]->reject(fn($t) => $t->jabatan === 'Ketua');
+            $iconMap  = ['Tim Pembina'=>'shield-alt','Tim Pengawas'=>'eye','Tim Pengurus'=>'star','Tim Tenaga Ahli'=>'lightbulb'];
+            $labelMap = ['Tim Pembina'=>'Pembina','Tim Pengawas'=>'Pengawas','Tim Pengurus'=>'Pengurus','Tim Tenaga Ahli'=>'Tenaga Ahli'];
+            $ketua    = $tims[$kelompok]->firstWhere('jabatan', 'Ketua');
+            $others   = $tims[$kelompok]->reject(fn($t) => $t->jabatan === 'Ketua');
         @endphp
         <div class="tim-group">
             <div class="tim-group-label">
                 <i class="fas fa-{{ $iconMap[$kelompok] ?? 'users' }}"></i>
-                {{ $kelompok }}
+                {{ $labelMap[$kelompok] ?? $kelompok }}
             </div>
 
             @if($ketua)
