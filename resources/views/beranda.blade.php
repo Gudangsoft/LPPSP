@@ -40,20 +40,20 @@
         grid-template-columns: 1fr 1fr;
         gap: 0;
         align-items: start;
-        background: transparent;
+        background: #ffffff;
         padding: 0;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow-md);
+        border-radius: 0;
+        box-shadow: none;
         position: relative;
         overflow: hidden;
-        border: 1px solid var(--border);
+        border: none;
     }
 
     .hero-section::before { display: none; }
 
     .hero-content {
-        background: var(--white);
-        border-radius: var(--radius) 0 0 var(--radius);
+        background: #ffffff;
+        border-radius: 0;
         padding: 44px 44px;
         position: relative;
         z-index: 1;
@@ -64,8 +64,8 @@
         z-index: 1;
         width: 100%;
         overflow: hidden;
-        border-radius: 0 var(--radius) var(--radius) 0;
-        background: transparent;
+        border-radius: 0;
+        background: #ffffff;
         display: flex;
         flex-direction: column;
     }
@@ -123,7 +123,7 @@
         object-position: right center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
-        border-radius: 0 var(--radius) var(--radius) 0;
+        border-radius: 0;
     }
 
     .hero-slide.active {
@@ -136,7 +136,7 @@
         object-position: right center;
         opacity: 1;
         z-index: 2;
-        border-radius: 0 var(--radius) var(--radius) 0;
+        border-radius: 0;
     }
 
     .slider-dots {
