@@ -5,11 +5,11 @@
 <style>
     .tk-container {
         max-width: 1200px;
-        margin: 60px auto;
+        margin: 32px auto;
         padding: 0 20px;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 20px;
     }
 
     /* Top Section */

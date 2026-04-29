@@ -186,8 +186,8 @@
     }
 
     .sambutan-foto {
-        width: 200px;
-        height: 200px;
+        width: 260px;
+        height: 260px;
         border-radius: 50%;
         border: 6px solid rgba(255, 255, 255, 0.15);
         object-fit: cover;
@@ -589,7 +589,7 @@
         .hero-title { font-size: 1.9rem; }
 
         .sambutan-section { padding: 32px 24px; gap: 24px; }
-        .sambutan-foto { width: 140px; height: 140px; }
+        .sambutan-foto { width: 160px; height: 160px; }
         .sambutan-title { font-size: 1.2rem; }
         .sambutan-text { font-size: 1rem; }
 
@@ -614,7 +614,7 @@
         .hero-text { font-size: 0.95rem; }
 
         .sambutan-section { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 28px 20px; }
-        .sambutan-foto { width: 110px; height: 110px; }
+        .sambutan-foto { width: 130px; height: 130px; }
         .sambutan-title { font-size: 1.1rem; justify-content: center; }
 
         .section-title { font-size: 1.4rem; }

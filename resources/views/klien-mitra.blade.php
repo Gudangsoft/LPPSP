@@ -8,7 +8,30 @@
 .km-page { padding-bottom: 80px; background: #f5f7fb; min-height: 80vh; }
 
 /* ── Content ─────────────────────────────────────── */
-.km-content { max-width: 1160px; margin: 0 auto; padding: 48px 24px 0; }
+.km-content { max-width: 1160px; margin: 0 auto; padding: 28px 24px 0; }
+
+/* ── Top Box ─────────────────────────────────────── */
+.km-top-box {
+    background: #e8f0fb;
+    border: 1px solid rgba(26, 111, 196, 0.2);
+    border-radius: 14px;
+    padding: 36px 40px;
+    margin-bottom: 36px;
+}
+.km-top-title {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #0d2b5e;
+    margin: 0 0 12px;
+}
+.km-top-desc {
+    color: #334155;
+    line-height: 1.75;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
 .km-section-head {
     margin-bottom: 32px;
 }
@@ -289,6 +312,13 @@
 
     {{-- ── CATEGORY GRID ───────────────────────────── --}}
     <div class="km-content">
+        <div class="km-top-box">
+            <h2 class="km-top-title">Klien &amp; Mitra</h2>
+            <p class="km-top-desc">
+                LPPSP menjalin kerjasama dengan berbagai instansi pemerintah, lembaga pendidikan, dunia usaha, dan mitra pembangunan dalam layanan pengkajian, pengembangan sumberdaya, pemberdayaan masyarakat, serta penguatan tata kelola pemerintahan pada bidang sosial, pembangunan daerah, kemanusiaan, dan keagamaan.
+            </p>
+        </div>
+
         <div class="km-section-head">
             <h2>Jejaring Kerjasama</h2>
         </div>

@@ -360,27 +360,6 @@
             </div>
         </div>
 
-        <div class="admin-form-card">
-            <h3 class="card-title"><i class="fas fa-image"></i> Gambar Banner Layanan</h3>
-            <div class="upload-container">
-                <div class="preview-box">
-                    @if($profile->foto_layanan)
-                    <img src="{{ Storage::url($profile->foto_layanan) }}" id="prevLayananImg" alt="Layanan">
-                    @else
-                    <div class="preview-placeholder" id="phLayananImg"><i class="fas fa-image"></i><br>Belum ada gambar</div>
-                    <img id="prevLayananImg" style="display:none;">
-                    @endif
-                </div>
-                <div class="upload-area">
-                    <input type="file" name="foto_layanan" accept="image/*" onchange="previewUpload(this, 'prevLayananImg', 'phLayananImg')">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p><strong>Klik atau seret file</strong> banner Layanan</p>
-                    <p style="font-size:0.8rem;color:#94a3b8;margin-top:8px;">
-                        <i class="fas fa-info-circle"></i> Rekomendasi: <strong>1280 x 480 px</strong> (Wide). Maks. 2MB.
-                    </p>
-                </div>
-            </div>
-        </div>
 
 
     </div>

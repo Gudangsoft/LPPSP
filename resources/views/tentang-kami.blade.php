@@ -5,11 +5,11 @@
 <style>
     .tk-container {
         max-width: 1200px;
-        margin: 60px auto;
+        margin: 32px auto;
         padding: 0 20px;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 20px;
     }
 
     /* ── Card Box ─────────────────────────────────────── */
@@ -226,7 +226,7 @@
     /* Featured leader (Ketua) */
     .tim-featured {
         display: flex;
-        gap: 48px;
+        gap: 28px;
         align-items: flex-start;
         margin-bottom: 40px;
         cursor: pointer;

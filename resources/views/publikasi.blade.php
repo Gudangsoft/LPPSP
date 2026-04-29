@@ -5,11 +5,11 @@
 <style>
     .tk-container {
         max-width: 1200px;
-        margin: 60px auto;
+        margin: 32px auto;
         padding: 0 20px;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 20px;
     }
 
     /* Top Section */
@@ -182,7 +182,7 @@
 
     <!-- Dynamic Post Grid -->
     @if($kategori !== 'semua')
-    <div id="daftar-publikasi" style="margin-top: 48px; border-top: 1px solid var(--border); padding-top: 40px; scroll-margin-top: 80px;">
+    <div id="daftar-publikasi" style="margin-top: 28px; border-top: 1px solid var(--border); padding-top: 40px; scroll-margin-top: 80px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <h3 class="tk-box-title" style="margin: 0; font-size: 1.5rem;">
                 {{ $kategori == 'semua' ? 'Daftar Publikasi Terbaru' : 'Publikasi: ' . $kategori }}

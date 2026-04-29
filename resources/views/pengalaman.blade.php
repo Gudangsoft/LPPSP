@@ -5,11 +5,11 @@
 <style>
     .tk-container {
         max-width: 1200px;
-        margin: 60px auto;
+        margin: 32px auto;
         padding: 0 20px;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 20px;
     }
 
     .tk-box {
@@ -28,13 +28,9 @@
     /* Top Section */
     .tk-top-section {
         background: var(--accent-light);
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: 36px;
-        align-items: center;
         border: 1px solid rgba(26, 111, 196, 0.2);
         border-radius: var(--radius);
-        padding: 32px;
+        padding: 36px 40px;
     }
 
     .tk-top-img-placeholder {
@@ -317,7 +313,7 @@
     .ku-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 32px;
+        gap: 20px;
     }
     .ku-box {
         border-radius: var(--radius);
@@ -367,23 +363,14 @@
 
     <!-- Top Section -->
     <div class="tk-top-section">
-        <div style="height:100%;">
-            @if(isset($profile) && $profile->foto_layanan)
-                <img src="{{ Storage::url($profile->foto_layanan) }}" alt="Pengalaman LPPSP" class="tk-top-img" style="min-height:160px;">
+        <h2 class="tk-box-title" style="margin-bottom:12px;font-size:1.5rem;">Pengalaman LPPSP</h2>
+        <p style="color:var(--text);line-height:1.7;font-size:1.05rem;font-weight:500;margin:0;">
+            @if(isset($profile) && $profile->deskripsi_pengalaman)
+                {!! nl2br(e($profile->deskripsi_pengalaman)) !!}
             @else
-                <div class="tk-top-img-placeholder">FOTO KEGIATAN</div>
+                LPPSP memiliki pengalaman layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
             @endif
-        </div>
-        <div>
-            <h2 class="tk-box-title" style="margin-bottom:12px;font-size:1.5rem;">Pengalaman LPPSP</h2>
-            <p style="color:var(--text);line-height:1.7;font-size:1.05rem;font-weight:500;">
-                @if(isset($profile) && $profile->deskripsi_pengalaman)
-                    {!! nl2br(e($profile->deskripsi_pengalaman)) !!}
-                @else
-                    LPPSP memiliki pengalaman layanan pengkajian, pengembangan sumberdaya pembangunan, pemberdayaan masyarakat, dan penguatan tata kelola pemerintahan pada bidang sosial, bidang pembangunan daerah dan pemerintahan, bidang kemanusiaan, dan bidang keagamaan.
-                @endif
-            </p>
-        </div>
+        </p>
     </div>
 
     <!-- Rekam Jejak Layanan -->

@@ -6,7 +6,7 @@
     <a href="{{ route('admin.tim-organisasi.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Anggota</a>
 </div>
 
-@foreach(['Tim Pengurus','Tim Pembina','Tim Tenaga Ahli'] as $kelompok)
+@foreach(['Tim Pengurus','Tim Pembina','Tim Pengawas','Tim Tenaga Ahli'] as $kelompok)
 @php $group = $tims->where('kelompok', $kelompok); @endphp
 <div style="margin-bottom:32px;">
     <h3 style="font-size:1rem;font-weight:700;color:#0d2b5e;margin-bottom:12px;padding:10px 16px;background:#e8f0fb;border-radius:8px;border-left:4px solid #1a6fc4;">

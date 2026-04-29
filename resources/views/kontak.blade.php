@@ -5,11 +5,11 @@
 <style>
     .tk-container {
         max-width: 1200px;
-        margin: 60px auto;
+        margin: 32px auto;
         padding: 0 20px;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 20px;
     }
 
     /* Top Section */
@@ -209,7 +209,7 @@
     .kontak-slider-dot.active { background: #1a6fc4; transform: scale(1.25); }
 
     @media (max-width: 992px) {
-        .contact-3-grid { grid-template-columns: 1fr; gap: 32px; }
+        .contact-3-grid { grid-template-columns: 1fr; gap: 20px; }
     }
 </style>
 @endpush
