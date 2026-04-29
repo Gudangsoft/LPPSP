@@ -152,7 +152,7 @@
     
     .sortable-ghost {
         opacity: 0.4;
-        border: 2px solid #1a6fc4 !class;
+        border: 2px solid #1a6fc4 !important;
     }
     .drag-handle {
         position: absolute;
@@ -180,6 +180,29 @@
 
 <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
     @csrf @method('PUT')
+
+    @if(session('success'))
+    <div style="background:#dcfce7;border:1px solid #86efac;border-radius:10px;padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#166534;font-weight:600;">
+        <i class="fas fa-check-circle"></i> {{ session('success') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:12px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#991b1b;font-weight:600;">
+        <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+    </div>
+    @endif
+
+    @if($errors->any())
+    <div style="background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:12px 18px;margin-bottom:16px;color:#9a3412;">
+        <div style="display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px;"><i class="fas fa-triangle-exclamation"></i> Terdapat kesalahan validasi:</div>
+        <ul style="margin:0;padding-left:20px;font-size:0.9rem;">
+            @foreach($errors->all() as $err)
+            <li>{{ $err }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
     <div style="background:#e8f0fb;border:1px solid #bae6fd;border-radius:10px;padding:11px 16px;margin-bottom:20px;font-size:0.83rem;color:#0369a1;display:flex;align-items:center;gap:10px;">
         <i class="fas fa-info-circle"></i>

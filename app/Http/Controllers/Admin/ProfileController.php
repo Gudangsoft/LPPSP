@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -85,34 +86,59 @@ class ProfileController extends Controller
         }
 
         // Handle Slider Hero Images
-        $currentImages = $profile->hero_images ?? [];
-
-        // Respect the new order if sent from SortableJS
-        if ($request->has('hero_images_order') && !empty($request->hero_images_order)) {
-            $newOrder = json_decode($request->hero_images_order, true);
-            if (is_array($newOrder)) {
-                $currentImages = $newOrder;
+        try {
+            // Pastikan direktori storage tersedia
+            if (!Storage::disk('public')->exists('profile/sliders')) {
+                Storage::disk('public')->makeDirectory('profile/sliders');
             }
-        }
 
-        if ($request->has('remove_hero_images')) {
-            foreach ($request->remove_hero_images as $path) {
-                Storage::disk('public')->delete($path);
-                if (($key = array_search($path, $currentImages)) !== false) {
-                    unset($currentImages[$key]);
+            $currentImages = is_array($profile->hero_images) ? $profile->hero_images : [];
+
+            // Respect the new order if sent from SortableJS
+            if ($request->filled('hero_images_order')) {
+                $newOrder = json_decode($request->hero_images_order, true);
+                if (is_array($newOrder) && count($newOrder) > 0) {
+                    $currentImages = $newOrder;
                 }
             }
-            $currentImages = array_values($currentImages); // Reset keys after unset
-        }
-        
-        if ($request->hasFile('hero_images')) {
-            foreach ($request->file('hero_images') as $file) {
-                $currentImages[] = $file->store('profile/sliders', 'public');
-            }
-        }
-        $validated['hero_images'] = array_values($currentImages);
 
-        $profile->fill($validated)->save();
+            if ($request->has('remove_hero_images') && is_array($request->remove_hero_images)) {
+                foreach ($request->remove_hero_images as $path) {
+                    Storage::disk('public')->delete($path);
+                    $key = array_search($path, $currentImages);
+                    if ($key !== false) {
+                        unset($currentImages[$key]);
+                    }
+                }
+                $currentImages = array_values($currentImages);
+            }
+
+            if ($request->hasFile('hero_images')) {
+                foreach ($request->file('hero_images') as $file) {
+                    if ($file->isValid()) {
+                        $path = $file->store('profile/sliders', 'public');
+                        if ($path) {
+                            $currentImages[] = $path;
+                        }
+                    }
+                }
+            }
+
+            // Hapus key yang tidak perlu sebelum fill()
+            unset($validated['hero_images'], $validated['remove_hero_images']);
+
+            $profile->fill($validated);
+            $profile->hero_images = array_values($currentImages);
+            $profile->save();
+
+        } catch (\Throwable $e) {
+            Log::error('ProfileController@update error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return redirect()->route('admin.profile.edit')
+                ->withInput()
+                ->with('error', 'Gagal menyimpan: ' . $e->getMessage());
+        }
 
         return redirect()->route('admin.profile.edit')->with('success', 'Profil berhasil diperbarui.');
     }
