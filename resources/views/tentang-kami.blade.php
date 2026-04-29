@@ -508,23 +508,35 @@
     }
     .tim-modal-skills {
         margin-top: 20px;
-        padding-top: 16px;
-        border-top: 1px solid #f1f5f9;
+        padding: 18px 20px 18px 24px;
+        background: linear-gradient(135deg, #eef4ff 0%, #e8f0fb 100%);
+        border-radius: 12px;
+        border-left: 4px solid #f59e0b;
+        position: relative;
     }
     .tim-modal-skills-label {
         font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 1px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
-        color: #94a3b8;
+        color: #1e3a8a;
         margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .tim-modal-skills-label::before {
+        content: '★';
+        color: #f59e0b;
+        font-size: 0.85rem;
     }
     .tim-modal-skills-text {
         font-size: 0.93rem;
-        line-height: 1.8;
-        color: #374151;
+        line-height: 1.85;
+        color: #1e3a5f;
         text-align: justify;
         margin: 0;
+        font-weight: 500;
     }
 
     @media (max-width: 992px) {
