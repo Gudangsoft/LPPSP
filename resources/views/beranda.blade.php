@@ -66,7 +66,7 @@
         width: 100%;
         overflow: hidden;
         border-radius: 0 var(--radius) var(--radius) 0;
-        background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
+        background: transparent;
     }
 
     .hero-badge {
@@ -122,7 +122,7 @@
         height: 100%;
         width: 100%;
         display: block;
-        object-fit: contain;
+        object-fit: cover;
         opacity: 1;
         z-index: 2;
     }
