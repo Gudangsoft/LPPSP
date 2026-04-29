@@ -40,33 +40,33 @@
         grid-template-columns: 1.2fr 1fr;
         gap: 0;
         align-items: stretch;
-        background: var(--white);
+        background: transparent;
         padding: 0;
         border-radius: var(--radius);
         box-shadow: var(--shadow-md);
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         border: 1px solid var(--border);
         min-height: 0;
     }
 
-    /* Abstract shapes for premium feel */
-    .hero-section::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -10%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(37,99,235,0.05) 0%, rgba(255,255,255,0) 70%);
-        border-radius: 50%;
-        z-index: 0;
-    }
+    .hero-section::before { display: none; }
 
     .hero-content {
+        background: var(--white);
+        border-radius: var(--radius) 0 0 var(--radius);
         padding: 48px 60px;
         position: relative;
         z-index: 1;
+    }
+
+    .hero-visual {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
     }
 
     .hero-badge {
@@ -104,13 +104,6 @@
         text-align: justify;
     }
 
-    .hero-visual {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        overflow: hidden;
-        background: linear-gradient(135deg, #0d2b5e 0%, #1a4a9e 100%);
-    }
 
     .hero-slide {
         width: 100%;
