@@ -122,7 +122,7 @@
         height: 100%;
         width: 100%;
         display: block;
-        object-fit: cover;
+        object-fit: contain;
         opacity: 1;
         z-index: 2;
     }
