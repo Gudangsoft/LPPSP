@@ -292,31 +292,12 @@
         'Kementerian/Lembaga' => 'landmark',
         'Pemerintah Daerah'   => 'city',
         'OPD/Instansi Teknis' => 'sitemap',
+        'BUMD'                => 'building',
         'Lembaga Pendidikan'  => 'graduation-cap',
         'Dunia Usaha'         => 'briefcase',
         'Lembaga Mitra'       => 'handshake',
+        'Lainnya'             => 'circle',
     ];
-
-    // Build all client data for JS
-    $allClientData = [];
-    foreach($grouped as $kat => $clients) {
-        foreach($clients as $klien) {
-            $proyek = $pengalamanMap[$klien->nama] ?? collect();
-            $allClientData[$klien->id] = [
-                'nama'     => $klien->nama,
-                'kategori' => $klien->kategori,
-                'logo'     => $klien->logo ? Storage::url($klien->logo) : '',
-                'inisial'  => strtoupper(substr($klien->nama, 0, 1)),
-                'proyek'   => $proyek->map(fn($p) => [
-                    'judul'     => $p->judul,
-                    'tahun'     => $p->tahun,
-                    'lokasi'    => $p->lokasi,
-                    'layanan'   => $p->layanan?->judul,
-                    'deskripsi' => $p->deskripsi,
-                ])->values()->toArray(),
-            ];
-        }
-    }
 @endphp
 
 <div class="km-page">
@@ -364,12 +345,13 @@
             {{-- Hidden client data for this category --}}
             @php
                 $catJsonData = $clients->map(function($c) use ($allClientData) {
+                    $cId = $c->id;
                     return [
-                        'id'          => $c->id,
+                        'id'          => $cId,
                         'nama'        => $c->nama,
-                        'logo'        => $c->logo ? Storage::url($c->logo) : '',
-                        'inisial'     => strtoupper(substr($c->nama, 0, 1)),
-                        'proyek_count'=> count($allClientData[$c->id]['proyek'] ?? []),
+                        'logo'        => isset($allClientData[$cId]) && $allClientData[$cId]['logo'] ? $allClientData[$cId]['logo'] : '',
+                        'inisial'     => strtoupper(mb_substr($c->nama, 0, 1)),
+                        'proyek_count'=> count($allClientData[$cId]['proyek'] ?? []),
                     ];
                 })->values();
             @endphp
