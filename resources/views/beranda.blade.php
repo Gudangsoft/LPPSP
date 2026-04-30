@@ -54,7 +54,7 @@
     .hero-content {
         background: #ffffff;
         border-radius: 0;
-        padding: 44px 44px;
+        padding: 44px 16px 44px 44px;
         position: relative;
         z-index: 1;
     }
@@ -65,7 +65,7 @@
         width: 100%;
         overflow: hidden;
         border-radius: 0;
-        background: #ffffff;
+        background: #000;
         display: flex;
         flex-direction: column;
     }
@@ -117,10 +117,10 @@
         grid-area: 1 / 1;
         width: 100%;
         height: auto;
-        max-height: 540px;
+        max-height: 580px;
         display: block;
-        object-fit: contain;
-        object-position: right center;
+        object-fit: cover;
+        object-position: center center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
         border-radius: 0;
@@ -130,10 +130,10 @@
         grid-area: 1 / 1;
         width: 100%;
         height: auto;
-        max-height: 540px;
+        max-height: 580px;
         display: block;
-        object-fit: contain;
-        object-position: right center;
+        object-fit: cover;
+        object-position: center center;
         opacity: 1;
         z-index: 2;
         border-radius: 0;
