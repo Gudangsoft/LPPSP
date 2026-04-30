@@ -37,7 +37,7 @@
     /* Hero Section */
     .hero-section {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr minmax(0, 440px);
         gap: 0;
         align-items: start;
         background: #ffffff;
