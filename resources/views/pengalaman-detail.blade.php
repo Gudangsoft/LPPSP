@@ -96,24 +96,21 @@
             <h2 class="detail-title">{{ $pengalaman->judul }}</h2>
             <div class="detail-meta">
                 @if($pengalaman->layanan)
-                <span><i class="fas fa-tag"></i> {{ $pengalaman->layanan->judul }}</span>
+                <span><i class="fas fa-tag" title="Layanan"></i> {{ $pengalaman->layanan->judul }}</span>
                 @endif
                 @if($pengalaman->klien)
-                <span><i class="fas fa-building"></i> {{ $pengalaman->klien }}</span>
+                <span><i class="fas fa-building" title="Klien/Pemberi Pekerjaan"></i> {{ $pengalaman->klien }}</span>
                 @endif
                 @if($pengalaman->lokasi)
-                <span><i class="fas fa-map-marker-alt"></i> {{ $pengalaman->lokasi }}</span>
+                <span><i class="fas fa-map-marker-alt" title="Lokasi"></i> {{ $pengalaman->lokasi }}</span>
                 @endif
                 @if($pengalaman->tahun)
-                <span><i class="fas fa-calendar-alt"></i> Tahun {{ $pengalaman->tahun }}</span>
+                <span><i class="fas fa-calendar-alt" title="Tahun Pelaksanaan"></i> Tahun {{ $pengalaman->tahun }}</span>
+                @endif
+                @if($pengalaman->target_sasaran)
+                <span><i class="fas fa-users" title="Target/Kelompok Sasaran"></i> {{ $pengalaman->target_sasaran }}</span>
                 @endif
             </div>
-            @if($pengalaman->target_sasaran)
-            <div style="margin-top: 12px; display: flex; align-items: flex-start; gap: 8px; font-size: 0.95rem; color: var(--text-muted);">
-                <i class="fas fa-users" style="color: var(--primary-light); margin-top: 2px; flex-shrink: 0;"></i>
-                <span><strong style="color: var(--text);">Target / Kelompok Sasaran:</strong> {{ $pengalaman->target_sasaran }}</span>
-            </div>
-            @endif
         </div>
 
         @if($pengalaman->gambar)
