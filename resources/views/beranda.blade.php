@@ -517,14 +517,12 @@
 
     /* ═══ Layanan Beranda Section (sama dgn halaman /layanan) ═══ */
     .layanan-beranda-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 14px;
     }
     .layanan-beranda-card {
-        flex: 1 1 300px;
-        max-width: 360px;
+        width: 100%;
         background: linear-gradient(135deg, var(--primary-blue) 0%, #1a3a8a 100%);
         color: var(--white);
         border-radius: 20px;
@@ -608,7 +606,7 @@
         .logo-track { gap: 32px; }
         .logo-item { height: 36px; }
 
-        .layanan-beranda-card { flex: 1 1 calc(50% - 24px); }
+        .layanan-beranda-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ── Mobile Potrait (≤480px) ─────────────────────── */
@@ -626,7 +624,7 @@
         .section-title { font-size: 1.4rem; }
         .section-header { margin-bottom: 32px; }
 
-        .layanan-beranda-card { flex: 1 1 100%; max-width: 100%; }
+        .layanan-beranda-grid { grid-template-columns: 1fr; }
         .layanan-beranda-title { font-size: 1rem; }
 
         .pub-body { padding: 16px; }
