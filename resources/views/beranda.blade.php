@@ -65,7 +65,6 @@
         width: 100%;
         overflow: hidden;
         border-radius: 0;
-        background: #000;
         display: flex;
         flex-direction: column;
     }
@@ -117,10 +116,7 @@
         grid-area: 1 / 1;
         width: 100%;
         height: auto;
-        max-height: 580px;
         display: block;
-        object-fit: cover;
-        object-position: center center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
         border-radius: 0;
@@ -130,10 +126,7 @@
         grid-area: 1 / 1;
         width: 100%;
         height: auto;
-        max-height: 580px;
         display: block;
-        object-fit: cover;
-        object-position: center center;
         opacity: 1;
         z-index: 2;
         border-radius: 0;
