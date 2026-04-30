@@ -54,9 +54,9 @@ class PengalamanAdminController extends Controller
     {
         $validated = $request->validate([
             'layanan_id'     => 'nullable|exists:layanans,id',
-            'judul'          => 'required|string|max:300',
-            'klien'          => 'required|string|max:200',
-            'target_sasaran' => 'nullable|string|max:300',
+            'judul'          => 'required|string',
+            'klien'          => 'required|string',
+            'target_sasaran' => 'nullable|string',
             'jenis_klien'    => 'nullable|string|max:100',
             'lokasi'         => 'nullable|string|max:200',
             'tahun'          => 'required|integer|min:1990|max:2100',
@@ -96,9 +96,9 @@ class PengalamanAdminController extends Controller
     {
         $validated = $request->validate([
             'layanan_id'     => 'nullable|exists:layanans,id',
-            'judul'          => 'required|string|max:300',
-            'klien'          => 'required|string|max:200',
-            'target_sasaran' => 'nullable|string|max:300',
+            'judul'          => 'required|string',
+            'klien'          => 'required|string',
+            'target_sasaran' => 'nullable|string',
             'jenis_klien'    => 'nullable|string|max:100',
             'lokasi'         => 'nullable|string|max:200',
             'tahun'          => 'required|integer|min:1990|max:2100',

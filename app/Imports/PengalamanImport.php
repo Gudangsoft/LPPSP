@@ -35,32 +35,33 @@ class PengalamanImport implements ToModel, WithStartRow, SkipsEmptyRows, SkipsOn
         // 7 = Tahun Pelaksanaan
         // 8 = Deskripsi Singkat
 
-        $judul = trim($row[2] ?? '');
-        $klien = trim($row[5] ?? '');
-        $tahun = intval($row[7] ?? date('Y'));
+        $judul = trim((string)($row[2] ?? ''));
+        $klien = trim((string)($row[5] ?? ''));
+        $tahun = intval($row[7] ?? 0);
 
         if (empty($judul) || empty($klien)) {
             return null;
         }
 
+        // Normalize tahun: handle float from Excel (e.g. 2025.0)
         if ($tahun < 1990 || $tahun > 2100) {
-            $tahun = date('Y');
+            $tahun = (int) date('Y');
         }
 
-        $layananNama = trim($row[1] ?? '');
+        $layananNama = trim((string)($row[1] ?? ''));
         $layananId   = $this->resolveLayananId($layananNama);
 
         $this->importedCount++;
 
         return new Pengalaman([
             'layanan_id'     => $layananId,
-            'judul'          => $judul,
-            'target_sasaran' => trim($row[3] ?? '') ?: null,
-            'jenis_klien'    => trim($row[4] ?? '') ?: null,
-            'klien'          => $klien,
-            'lokasi'         => trim($row[6] ?? '') ?: null,
+            'judul'          => $judul,          // text column — no length limit
+            'target_sasaran' => trim((string)($row[3] ?? '')) ?: null,
+            'jenis_klien'    => mb_substr(trim((string)($row[4] ?? '')), 0, 100) ?: null,
+            'klien'          => $klien,           // text column — no length limit
+            'lokasi'         => mb_substr(trim((string)($row[6] ?? '')), 0, 200) ?: null,
             'tahun'          => $tahun,
-            'deskripsi'      => trim($row[8] ?? '') ?: null,
+            'deskripsi'      => trim((string)($row[8] ?? '')) ?: null,
             'aktif'          => true,
             'unggulan'       => false,
         ]);
