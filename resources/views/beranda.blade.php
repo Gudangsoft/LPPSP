@@ -28,10 +28,10 @@
     .home-container {
         max-width: 1280px;
         margin: 0 auto;
-        padding: 24px 24px 60px;
+        padding: 16px 24px 40px;
         display: flex;
         flex-direction: column;
-        gap: 64px;
+        gap: 32px;
     }
 
     /* Hero Section */
@@ -164,10 +164,10 @@
     .sambutan-section {
         background: linear-gradient(135deg, var(--primary-blue) 0%, #172554 100%);
         border-radius: var(--radius);
-        padding: 48px 64px;
+        padding: 36px 48px;
         display: grid;
         grid-template-columns: auto 1fr;
-        gap: 48px;
+        gap: 28px;
         align-items: center;
         box-shadow: var(--shadow-md);
         color: var(--white);
@@ -240,7 +240,7 @@
     .logo-track {
         display: flex;
         align-items: center;
-        gap: 60px;
+        gap: 32px;
         justify-content: center;
         flex-wrap: wrap;
     }
@@ -256,7 +256,7 @@
     /* Publikasi Cards */
     .section-header {
         text-align: center;
-        margin-bottom: 48px;
+        margin-bottom: 28px;
     }
     .section-title {
         font-size: 2rem;
@@ -272,7 +272,7 @@
     .pub-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
+        gap: 16px;
     }
     .pub-card {
         background: var(--white);
@@ -313,7 +313,7 @@
     .info-grid {
         display: grid;
         grid-template-columns: 1.2fr 0.8fr;
-        gap: 32px;
+        gap: 16px;
     }
 
     .info-card {
@@ -520,7 +520,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 24px;
+        gap: 14px;
     }
     .layanan-beranda-card {
         flex: 1 1 300px;
@@ -589,12 +589,12 @@
 
     /* ── Mobile Landscape / Tablet kecil (≤768px) ───── */
     @media (max-width: 768px) {
-        .home-container { gap: 40px; padding: 16px 16px 40px; }
+        .home-container { gap: 24px; padding: 16px 16px 32px; }
 
         .hero-content { padding: 32px 24px; }
         .hero-title { font-size: 1.9rem; }
 
-        .sambutan-section { padding: 32px 24px; gap: 24px; }
+        .sambutan-section { padding: 24px 20px; gap: 16px; }
         .sambutan-foto { width: 160px; height: 160px; }
         .sambutan-title { font-size: 1.2rem; }
         .sambutan-text { font-size: 1rem; }
@@ -613,7 +613,7 @@
 
     /* ── Mobile Potrait (≤480px) ─────────────────────── */
     @media (max-width: 480px) {
-        .home-container { gap: 32px; padding: 12px 12px 32px; }
+        .home-container { gap: 20px; padding: 12px 12px 24px; }
 
         .hero-content { padding: 24px 20px; }
         .hero-title { font-size: 1.6rem; }
@@ -742,7 +742,7 @@
             </div>
             @endforeach
         </div>
-        <div style="text-align: center; margin-top: 48px;">
+        <div style="text-align: center; margin-top: 24px;">
             <a href="{{ route('layanan') }}" class="btn-primary" style="display:inline-flex;">
                 <i class="fas fa-th-list"></i> Lihat Semua Layanan
             </a>
@@ -775,7 +775,7 @@
             </article>
             @endforeach
         </div>
-        <div style="text-align: center; margin-top: 40px;">
+        <div style="text-align: center; margin-top: 20px;">
             <a href="{{ route('publikasi') }}" class="btn-outline">Lihat Semua Publikasi</a>
         </div>
     </section>
