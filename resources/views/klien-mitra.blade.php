@@ -355,7 +355,7 @@
                     ];
                 })->values();
             @endphp
-            <script type="application/json" id="cat-data-{{ Str::slug($kat) }}">@json($catJsonData)</script>
+            <script type="application/json" id="cat-data-{{ trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($kat)), '-') }}">@json($catJsonData)</script>
 
             @endforeach
         </div>
