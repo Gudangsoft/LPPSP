@@ -186,7 +186,7 @@
 
 /* Client list in modal */
 .km-client-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+    display: grid; grid-template-columns: 1fr; gap: 14px;
     padding: 22px 28px 28px;
 }
 .km-client-item {
@@ -273,7 +273,6 @@
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 900px) {
     .km-cat-grid { grid-template-columns: repeat(2, 1fr); }
-    .km-client-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 580px) {
     .km-cat-grid { grid-template-columns: 1fr; }
