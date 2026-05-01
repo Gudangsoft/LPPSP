@@ -84,4 +84,20 @@ class KlienMitraAdminController extends Controller
         $klienMitra->delete();
         return redirect()->route('admin.klien-mitra.index')->with('success', 'Klien/Mitra berhasil dihapus.');
     }
+
+    public function destroyBulk(Request $request)
+    {
+        $ids = $request->input('ids');
+        if (!$ids || !is_array($ids)) {
+            return redirect()->back()->with('warning', 'Pilih minimal 1 klien/mitra untuk dihapus.');
+        }
+
+        $klienMitras = KlienMitra::whereIn('id', $ids)->get();
+        foreach ($klienMitras as $km) {
+            if ($km->logo) Storage::disk('public')->delete($km->logo);
+            $km->delete();
+        }
+
+        return redirect()->route('admin.klien-mitra.index')->with('success', count($ids) . ' Klien/Mitra berhasil dihapus massal.');
+    }
 }
