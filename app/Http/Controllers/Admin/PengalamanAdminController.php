@@ -82,6 +82,28 @@ class PengalamanAdminController extends Controller
         $validated['galeri'] = empty($galeri) ? null : $galeri;
 
         Pengalaman::create($validated);
+
+        // Auto create KlienMitra
+        if (!empty($validated['klien'])) {
+            $validKategori = [
+                'Kementerian/Lembaga', 'Pemerintah Daerah', 'OPD/Instansi Teknis',
+                'Lembaga Pendidikan', 'Dunia Usaha', 'Lembaga Mitra',
+            ];
+            $kategori = 'Lembaga Mitra';
+            if (!empty($validated['jenis_klien'])) {
+                foreach ($validKategori as $vk) {
+                    if (strtolower($vk) === strtolower($validated['jenis_klien'])) {
+                        $kategori = $vk;
+                        break;
+                    }
+                }
+            }
+            KlienMitra::firstOrCreate(
+                ['nama' => $validated['klien']],
+                ['kategori' => $kategori, 'aktif' => true]
+            );
+        }
+
         return redirect()->route('admin.pengalaman.index')->with('success', 'Pengalaman berhasil ditambahkan.');
     }
 
@@ -137,6 +159,28 @@ class PengalamanAdminController extends Controller
         $validated['galeri'] = empty($galeri) ? null : $galeri;
 
         $pengalaman->update($validated);
+
+        // Auto create KlienMitra
+        if (!empty($validated['klien'])) {
+            $validKategori = [
+                'Kementerian/Lembaga', 'Pemerintah Daerah', 'OPD/Instansi Teknis',
+                'Lembaga Pendidikan', 'Dunia Usaha', 'Lembaga Mitra',
+            ];
+            $kategori = 'Lembaga Mitra';
+            if (!empty($validated['jenis_klien'])) {
+                foreach ($validKategori as $vk) {
+                    if (strtolower($vk) === strtolower($validated['jenis_klien'])) {
+                        $kategori = $vk;
+                        break;
+                    }
+                }
+            }
+            KlienMitra::firstOrCreate(
+                ['nama' => $validated['klien']],
+                ['kategori' => $kategori, 'aktif' => true]
+            );
+        }
+
         return redirect()->route('admin.pengalaman.index')->with('success', 'Pengalaman berhasil diperbarui.');
     }
 

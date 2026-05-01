@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Layanan;
 use App\Models\Pengalaman;
+use App\Models\KlienMitra;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -50,6 +51,32 @@ class PengalamanImport implements ToModel, WithStartRow, SkipsEmptyRows, SkipsOn
 
         $layananNama = trim((string)($row[1] ?? ''));
         $layananId   = $this->resolveLayananId($layananNama);
+
+        if (!empty($klien)) {
+            $validKategori = [
+                'Kementerian/Lembaga',
+                'Pemerintah Daerah',
+                'OPD/Instansi Teknis',
+                'Lembaga Pendidikan',
+                'Dunia Usaha',
+                'Lembaga Mitra',
+            ];
+            
+            $jenisKlienExcel = trim((string)($row[4] ?? ''));
+            $kategori = 'Lembaga Mitra'; // default
+            
+            foreach ($validKategori as $vk) {
+                if (strtolower($vk) === strtolower($jenisKlienExcel)) {
+                    $kategori = $vk;
+                    break;
+                }
+            }
+
+            KlienMitra::firstOrCreate(
+                ['nama' => $klien],
+                ['kategori' => $kategori, 'aktif' => true]
+            );
+        }
 
         $this->importedCount++;
 
