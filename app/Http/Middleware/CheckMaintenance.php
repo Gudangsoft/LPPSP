@@ -11,6 +11,11 @@ class CheckMaintenance
 {
     public function handle(Request $request, Closure $next)
     {
+        // Bypass maintenance mode for login routes
+        if ($request->is('admin/login') || $request->is('admin/logout')) {
+            return $next($request);
+        }
+
         // Jika admin sudah login, bypass maintenance
         if (Auth::check()) {
             return $next($request);
