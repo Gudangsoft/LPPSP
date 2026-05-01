@@ -79,6 +79,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('/pengalaman', PengalamanAdminController::class)->except(['show']);
 
     // Klien/Mitra
+    Route::delete('/klien-mitra/bulk-destroy', [KlienMitraAdminController::class, 'destroyBulk'])->name('klien-mitra.bulk-destroy');
     Route::resource('/klien-mitra', KlienMitraAdminController::class)->except(['show']);
 
     // Testimoni
