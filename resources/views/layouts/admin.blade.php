@@ -64,7 +64,7 @@
                     <i class="fas fa-quote-left"></i> Testimoni
                 </a></li>
                 @php
-                    $pubGroupActive = request()->routeIs('admin.publikasi*') || request()->routeIs('admin.jurnal*') || request()->routeIs('admin.kategori-publikasi*');
+                    $pubGroupActive = request()->routeIs('admin.publikasi*') || request()->routeIs('admin.jurnal*') || request()->routeIs('admin.berita*') || request()->routeIs('admin.kategori-publikasi*');
                 @endphp
                 <li class="nav-group {{ $pubGroupActive ? 'open' : '' }}">
                     <button class="nav-group-toggle" onclick="toggleNavGroup(this)">
@@ -74,6 +74,9 @@
                     <ul class="nav-sub">
                         <li><a href="{{ route('admin.publikasi.index') }}" class="{{ request()->routeIs('admin.publikasi*') && !request()->routeIs('admin.kategori-publikasi*') ? 'active' : '' }}">
                             <i class="fas fa-list"></i> Semua Publikasi
+                        </a></li>
+                        <li><a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita*') ? 'active' : '' }}">
+                            <i class="fas fa-bullhorn"></i> Berita
                         </a></li>
                         <li><a href="{{ route('admin.jurnal.index') }}" class="{{ request()->routeIs('admin.jurnal*') ? 'active' : '' }}">
                             <i class="fas fa-book-open"></i> Jurnal Ilmiah

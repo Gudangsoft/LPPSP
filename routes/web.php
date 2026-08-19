@@ -7,6 +7,7 @@ use App\Http\Controllers\PengalamanController;
 use App\Http\Controllers\KlienMitraController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\PublikasiController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\TestimoniAdminController;
 use App\Http\Controllers\Admin\PublikasiAdminController;
 use App\Http\Controllers\Admin\KategoriPublikasiAdminController;
 use App\Http\Controllers\Admin\JurnalAdminController;
+use App\Http\Controllers\Admin\BeritaAdminController;
 use App\Http\Controllers\Admin\KontakAdminController;
 use App\Http\Controllers\Admin\TimOrganisasiAdminController;
 use App\Http\Controllers\Admin\GaleriSliderAdminController;
@@ -29,12 +31,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/tentang-kami', [TentangKamiController::class, 'index'])->name('tentang-kami');
 Route::get('/layanan', [LayananController::class, 'index'])->name('layanan');
+Route::get('/layanan/{layanan}', [LayananController::class, 'show'])->name('layanan.show');
 Route::get('/pengalaman', [PengalamanController::class, 'index'])->name('pengalaman');
 Route::get('/pengalaman/{pengalaman}', [PengalamanController::class, 'show'])->name('pengalaman.show');
 Route::get('/klien-mitra', [KlienMitraController::class, 'index'])->name('klien-mitra');
 Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
 Route::get('/publikasi', [PublikasiController::class, 'index'])->name('publikasi');
 Route::get('/publikasi/{publikasi:slug}', [PublikasiController::class, 'show'])->name('publikasi.show');
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+Route::get('/berita/{berita:slug}', [BeritaController::class, 'show'])->name('berita.show');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 
@@ -103,6 +108,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin_only'])->grou
 
     // Jurnal Ilmiah
     Route::resource('/jurnal', JurnalAdminController::class)->except(['show']);
+
+    // Berita
+    Route::resource('/berita', BeritaAdminController::class)->parameters(['berita' => 'berita'])->except(['show']);
 
     // Kategori Publikasi
     Route::resource('/kategori-publikasi', KategoriPublikasiAdminController::class)->except(['show', 'create', 'edit']);

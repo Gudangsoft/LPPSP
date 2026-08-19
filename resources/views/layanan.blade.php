@@ -145,6 +145,30 @@
             text-align: center;
         }
 
+        .lu-detail-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+            padding: 8px 22px;
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--white);
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.25s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lu-card:hover .lu-detail-btn {
+            background: #fbbf24;
+            color: var(--primary);
+            border-color: #fbbf24;
+        }
+
         /* Keunggulan */
         .ku-grid {
             display: grid;
@@ -270,6 +294,7 @@
                         @if($layanan->deskripsi)
                             <p class="lu-desc">{{ $layanan->deskripsi }}</p>
                         @endif
+                        <a href="{{ route('layanan.show', $layanan) }}" class="lu-detail-btn">Detail <i class="fas fa-arrow-right" style="font-size:0.75em;"></i></a>
                     </div>
                 @empty
                     @foreach($iconMap as $judul => $icon)

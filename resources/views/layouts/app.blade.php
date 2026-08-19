@@ -47,6 +47,7 @@
             <li><a href="{{ route('pengalaman') }}" class="nav-link {{ request()->routeIs('pengalaman') ? 'active' : '' }}">Pengalaman</a></li>
             <li><a href="{{ route('klien-mitra') }}" class="nav-link {{ request()->routeIs('klien-mitra') ? 'active' : '' }}">Klien/Mitra</a></li>
             <li><a href="{{ route('testimoni') }}" class="nav-link {{ request()->routeIs('testimoni') ? 'active' : '' }}">Testimoni</a></li>
+            <li><a href="{{ route('berita') }}" class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}">Berita</a></li>
             <li><a href="{{ route('publikasi') }}" class="nav-link {{ request()->routeIs('publikasi') ? 'active' : '' }}">Publikasi</a></li>
             <li><a href="{{ route('kontak') }}" class="nav-link nav-btn {{ request()->routeIs('kontak') ? 'active' : '' }}">Kontak</a></li>
         </ul>
